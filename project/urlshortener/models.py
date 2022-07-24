@@ -1,5 +1,7 @@
 from django.db import models
 from .utils import create_shortened_url
+from django.contrib.auth.models import User, update_last_login
+from django.db.models.deletion import CASCADE
 
 class Shortener(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -22,3 +24,8 @@ class Shortener(models.Model):
             self.short_url = create_shortened_url(self)
 
         super().save(*args, **kwargs)
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, related_name='user_profile', on_delete=models.CASCADE)
+    profile_pic = models.ImageField(upload_to ='profile_pics')
