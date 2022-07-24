@@ -24,8 +24,3 @@ class Shortener(models.Model):
             self.short_url = create_shortened_url(self)
 
         super().save(*args, **kwargs)
-
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name='user_profile', on_delete=models.CASCADE)
-    profile_pic = models.ImageField(upload_to ='profile_pics')

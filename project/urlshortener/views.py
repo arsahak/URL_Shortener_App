@@ -6,9 +6,9 @@ from django.shortcuts import render  # We will use it later
 
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 
+from .forms import ShortenerForm
 from .models import Shortener
 
-from .forms import ShortenerForm, SignUpForm
 
 
 def home_view(request):
@@ -45,47 +45,11 @@ def home_view(request):
 def redirect_url_view(request, shortened_part):
     try:
         shortener = Shortener.objects.get(short_url=shortened_part)
-
         shortener.times_followed += 1
-
         shortener.save()
-
         return HttpResponseRedirect(shortener.long_url)
-
     except:
         raise Http404('Sorry this link is broken :(')
 
-
-def sign_up(request):
-    form = SignUpForm()
-    registered = False
-    if request.method == 'POST':
-        form = SignUpForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            registered = True
-
-    dict = {
-        'form': form, 'registered': registered
-    }
-    return render(request, 'urlshortener/signup.html', context=dict)
-
-
-def login_page(request):
-    form = SignUpForm()
-    if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return HttpResponseRedirect(reverse('home'))
-    return render(request, 'urlshortener/login.html', context={'form': form})
-
-
-@login_required
-def logout_user(request):
-    logout(request)
-    return HttpResponseRedirect(reverse('home'))
+def index(request):
+    return HttpResponse("Hello world!")
