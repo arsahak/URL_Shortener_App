@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from .forms import ShortenerForm, Custom_urlForm
+from .forms import ShortenerForm
 from .models import Shortener
 from datetime import date
 
@@ -18,12 +18,10 @@ def home_view(request):
     elif request.method == 'POST':
         used_form = ShortenerForm(request.POST)
         if used_form.is_valid():
-            print(used_form.cleaned_data)
             shortened_object = used_form.save()
             expired_date = shortened_object.expired_date
             new_url = request.build_absolute_uri('/') + shortened_object.short_url
             long_url = shortened_object.long_url
-            print(shortened_object.expired_date)
             context['expired_date'] = expired_date
             context['new_url'] = new_url
             context['long_url'] = long_url

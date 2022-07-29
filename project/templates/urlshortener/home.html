@@ -19,17 +19,6 @@
             </button>
           </div>
         </div>
-        <br><br>
-         {% if user.is_authenticated %}
-        <div class="row g-1">
-          <div class="col-4"></div>
-          <div class="col-4">
-            <a href=""><button class="btn btn-success btn-lg w-100" type="submit">
-              Custom Url
-            </button></a>
-        </div>
-          <div class="col-4"></div>
-          {% endif %}
       </form>
     </div>
   </div>
@@ -45,6 +34,7 @@
     <h2 class="text-danger">Your shortened Url</h2>
     <p>You can copy the Link below and share it with your friends</p>
     <input type="url" name="new_url" id="foo" value="{{new_url}}">
+    <button class="btn btn-warning btn-md" type="submit"> Custom Link </button>
     <button class="btn btn-success btn-md" data-clipboard-target="#foo">Copy Link
     </button>
     <br><br>

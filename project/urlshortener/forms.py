@@ -14,12 +14,3 @@ class ShortenerForm(forms.ModelForm):
         fields = ('long_url', 'expired_date')
 
 
-class Custom_urlForm(forms.ModelForm):
-    custom_url = forms.URLField(
-        widget=forms.TextInput(attrs={"class": "form-control-lg", "placeholder": "Enter Your Custom Link", }))
-
-    class Meta:
-        model = Shortener
-
-        fields = ('long_url', 'custom_url')
-
